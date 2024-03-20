@@ -40,7 +40,7 @@ class test_basemodel(unittest.TestCase):
         self.assertFalse(new is i)
 
     def test_x(self):
-        pass
+        self.assertTrue(5 > 3)
 
     def test_kwargs_int(self):
         """ """
