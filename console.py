@@ -24,6 +24,21 @@ def handle_update(args):
     return args
 
 
+def parse_value(value):
+    """parse the value string and return the value based on the type"""
+    if value[0] == '"' and value[-1] == '"':
+        value = value[1: -1]
+        value = value.replace('\\"', '"')
+        value = value.replace('_', ' ')
+        return value
+    elif re.match(r"^\d+\.\d+$", value) or value == 'inf' or value == 'NaN':
+        return float(value)
+    elif value.isdigit():
+        return int(value)
+    else:
+        return None
+
+
 class HBNBCommand(cmd.Cmd):
     """ Contains the functionality for the HBNB console"""
 
@@ -141,14 +156,24 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
+        args = args.split()
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        elif args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
+        cls_name = args[0]
+        new_instance = HBNBCommand.classes[cls_name]()
+        for pair in args[1:]:
+            pair = pair.split(sep='=')
+            name = pair[0]
+            value = pair[1]
+            parsed_value = parse_value(value)
+            if parsed_value:
+                setattr(new_instance, name, parsed_value)
+            else:
+                continue
         print(new_instance.id)
         storage.save()
 

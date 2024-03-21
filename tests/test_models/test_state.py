@@ -19,4 +19,5 @@ class test_state(test_basemodel):
         self.assertEqual(type(new.name), str)
 
     def test_x(self):
+        """ """
         self.assertTrue(True)
