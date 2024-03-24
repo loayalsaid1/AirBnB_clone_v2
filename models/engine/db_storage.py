@@ -10,13 +10,15 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+# classes = {
+#             'User': User, 'Place': Place,
+#             'State': State, 'City': City, 'Amenity': Amenity,
+#             'Review': Review
+#             }
+
 classes = {
-            'BaseModel': BaseModel, 'User': User, 'Place': Place,
-            'State': State, 'City': City, 'Amenity': Amenity,
-            'Review': Review
+            'State': State, 'City': City
             }
-
-
 class DBStorage:
     """Database storage engine"""
     __engine = None
@@ -24,16 +26,18 @@ class DBStorage:
 
     def __init__(self):
         """Initialize the DB engine instance"""
-        # self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(
-        #     getenv('HBNB_MYSQL_USER'),
-        #     getenv('HBNB_MYSQL_PWD'),
-        #     getenv('HBNB_MYSQL_HOST'),
-        #     getenv('HBNB_MYSQL_DB')
-        # ), pool_pre_ping=True)
-
-        self.__engine = create_engine("mysql+mysqldb://{}:{}@localhost/{}".format(
-            "loayalsaid1", "Loay_alsaid04", "hbnb_dev_db"
+        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(
+            getenv('HBNB_MYSQL_USER'),
+            getenv('HBNB_MYSQL_PWD'),
+            getenv('HBNB_MYSQL_HOST'),
+            getenv('HBNB_MYSQL_DB')
         ), pool_pre_ping=True)
+
+
+        
+        # self.__engine = create_engine("mysql+mysqldb://{}:{}@localhost/{}".format(
+        #     "myusr", "mypasswd", "hbnb_dev_db"
+        # ), pool_pre_ping=True)
 
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
@@ -53,7 +57,7 @@ class DBStorage:
             for model_name, model in classes.items():
                 objects = self.__session.query(model).all()
                 for obj in objects:
-                    instances[f"{obj.__class__.__name}.{obj.id}"] = obj
+                    instances[f"{obj.__class__.__name__}.{obj.id}"] = obj
         return instances
 
     def new(self, obj):
