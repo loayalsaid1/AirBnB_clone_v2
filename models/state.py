@@ -5,6 +5,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Column, String
 from os import getenv
 
+
 class State(BaseModel, Base):
     """ State class """
     __tablename__ = 'states'
@@ -18,8 +19,8 @@ class State(BaseModel, Base):
         def cities(self):
             from models import storage
             instances = []
-            for  obj in storage.all(State).values():
+            for obj in storage.all(State).values():
                 if obj.state_id == self.id:
                     instances.append(obj)
-            
+
             return instances

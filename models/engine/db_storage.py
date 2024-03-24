@@ -19,6 +19,8 @@ from models.review import Review
 classes = {
             'State': State, 'City': City, 'User': User, 'Place': Place
             }
+
+
 class DBStorage:
     """Database storage engine"""
     __engine = None
@@ -34,14 +36,8 @@ class DBStorage:
         ), pool_pre_ping=True)
 
 
-        
-        # self.__engine = create_engine("mysql+mysqldb://{}:{}@localhost/{}".format(
-        #     "myusr", "mypasswd", "hbnb_dev_db"
-        # ), pool_pre_ping=True)
-
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
-
 
 
     def all(self, cls=None):
@@ -78,6 +74,6 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
 
         connection_factory = sessionmaker(bind=self.__engine,
-            expire_on_commit=False)
+                                          expire_on_commit=False)
         Session = scoped_session(connection_factory)
         self.__session = Session()
