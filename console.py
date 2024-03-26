@@ -31,7 +31,7 @@ def parse_value(value):
         value = value.replace('\\"', '"')
         value = value.replace('_', ' ')
         return value
-    elif re.match(r"^\d+\.\d+$", value) or value == 'inf' or value == 'NaN':
+    elif re.match(r"^-?\d+\.\d+$", value) or value == 'inf' or value == 'NaN':
         return float(value)
     elif value.isdigit():
         return int(value)
