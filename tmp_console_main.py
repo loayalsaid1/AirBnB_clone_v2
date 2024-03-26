@@ -33,7 +33,7 @@ def parse_value(value):
         return value
     elif re.match(r"^-?\d+\.\d+$", value) or value == 'inf' or value == 'NaN':
         return float(value)
-    elif value.isdigit() or value[1:].isdigit():
+    elif value.isdigit():
         return int(value)
     else:
         return None
@@ -170,7 +170,7 @@ class HBNBCommand(cmd.Cmd):
             name = pair[0]
             value = pair[1]
             parsed_value = parse_value(value)
-            if parsed_value is not None:
+            if parsed_value:
                 setattr(new_instance, name, parsed_value)
             else:
                 continue

@@ -5,9 +5,8 @@ from sqlalchemy import ForeignKey
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
 from os import getenv
-from models import storage
 from models.review import Review
-
+import models
 
 class Place(BaseModel, Base):
     """ A place to stay """
@@ -31,7 +30,7 @@ class Place(BaseModel, Base):
         @property
         def reviews(self):
             instances = []
-            for obj in storage.all(Review()).values():
+            for obj in models.storage.all(Review()).values():
                 if obj.place_id == self.id:
                     instances.append(obj)
 
