@@ -33,6 +33,7 @@ def parse_value(value):
         return value
     elif re.match(r"^-?\d+\.\d+$", value) or value == 'inf' or value == 'NaN':
         return float(value)
+    # Useless commemnt to test something
     elif value.isdigit() or value[1:].isdigit():
         return int(value)
     else:
