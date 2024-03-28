@@ -38,13 +38,13 @@ class BaseModel:
 
         self.updated_at = datetime.now()
         models.storage.new(self)
-
         models.storage.save()
 
     def to_dict(self):
         """Convert instance into dict format"""
         dictionary = {}
         dictionary.update(self.__dict__)
+        # Ugly line, Sholdn't be done like this
         dictionary.update({'__class__':
                           (str(type(self)).split('.')[-1]).split('\'')[0]})
         dictionary['created_at'] = self.created_at.isoformat()
