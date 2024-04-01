@@ -17,7 +17,8 @@ from models.review import Review
 #             }
 
 classes = {
-            'State': State, 'City': City, 'User': User, 'Place': Place, "Review": Review
+            'State': State, 'City': City, 'User': User, 'Place': Place,
+            "Review": Review, "Amenity": Amenity
             }
 
 

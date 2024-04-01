@@ -1,12 +1,20 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
-from sqlalchemy import Column, String, Integer, Float
+from sqlalchemy import Column, String, Integer, Float, Table
 from sqlalchemy import ForeignKey
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
 from os import getenv
 from models.review import Review
+from models.amenity import Amenity
 import models
+
+
+place_amenity = Table('place_amenity', Base.metadata,
+                      Column("place_id", String(60), ForeignKey('places.id'), primary_key=True),
+                      Column("amenity_id", String(60), ForeignKey('amenities.id'), primary_key=True)
+)
+
 
 class Place(BaseModel, Base):
     """ A place to stay """
@@ -30,8 +38,29 @@ class Place(BaseModel, Base):
         @property
         def reviews(self):
             instances = []
-            for obj in models.storage.all(Review()).values():
+            for obj in models.storage.all(Amenity()).values():
                 if obj.place_id == self.id:
                     instances.append(obj)
 
             return instances
+
+    if getenv('HBNB_TYPE_STORAGE') == 'db':
+        amenities = relationship('Amenity', secondary=place_amenity, viewonly=False)
+    else:
+        @property
+        def amenities(self):
+            """Get all the amenities for that place"""
+            instances = []
+            for obj in models.storage.all(Amenity()).values():
+                if obj.place_id == self.id:
+                    instances.append(obj)
+            return instances
+        @amenities.setter
+        def amenities(self, amenity):
+            """Amenity setter"""
+            if not hasattr(self, 'amenity_ids'):
+                self.amenity_ids = []
+            if type(amenity) is not Amenity:
+                return
+            
+            self.amenity_ids.append(amenity.id)
