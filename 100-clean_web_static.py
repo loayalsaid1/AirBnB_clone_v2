@@ -65,3 +65,15 @@ def deploy():
     """
     archive_path = do_pack()
     return do_deploy(archive_path) if archive_path else False
+
+
+def do_clean(number=1):
+    """Remove all old archives and releasess and leave <number>"""
+    local_path = "versions"
+    remote_path = "/data/web_static/releases"
+    command = "rm -rf $(ls -t {} | tail -n +{})"
+    command = "cd {} && rm -rf $(ls -t | tail -n +{})"
+    starting_line = number + 1
+    local(command.format(local_path, starting_line))
+    sudo(command.format(remote_path, starting_line))
+    # run('cd /home/ubuntu/ && rm -f $(ls -t /home/ubuntu | tail -n +2)')
