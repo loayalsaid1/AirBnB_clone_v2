@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Create a Flask web application
-    initially, serving the route/
+    initially, serving the route /, /hbnb
 """
 from flask import Flask
 from markupsafe import escape
