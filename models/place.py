@@ -11,9 +11,10 @@ import models
 
 
 place_amenity = Table('place_amenity', Base.metadata,
-                      Column("place_id", String(60), ForeignKey('places.id'), primary_key=True),
-                      Column("amenity_id", String(60), ForeignKey('amenities.id'), primary_key=True)
-)
+                      Column("place_id", String(60), ForeignKey('places.id'),
+                             primary_key=True),
+                      Column("amenity_id", String(60),ForeignKey('amenities.id'), primary_key=True)
+                      )
 
 
 class Place(BaseModel, Base):
@@ -44,8 +45,7 @@ class Place(BaseModel, Base):
 
             return instances
 
-    amenities = relationship('Amenity', secondary=place_amenity, viewonly=False)
-    if getenv('HBNB_TYPE_STORAGE') == 'fs':
+    if getenv('HBNB_TYPE_STORAGE') != 'db' and getenv('HBNB_TYPE_STORAGE'):
         @property
         def amenities(self):
             """Get all the amenities for that place"""
@@ -61,5 +61,7 @@ class Place(BaseModel, Base):
                 self.amenity_ids = []
             if type(amenity) is not Amenity:
                 return
-            
+
             self.amenity_ids.append(amenity.id)
+
+    amenities = relationship('Amenity', secondary=place_amenity, viewonly=False)

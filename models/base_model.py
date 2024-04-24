@@ -13,8 +13,10 @@ Base = declarative_base()
 class BaseModel:
     """A base class for all hbnb models"""
     id = Column(String(60), primary_key=True)
-    created_at = Column(DateTime, default=datetime.utcnow(), nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow(), nullable=False,
+    created_at = Column(DateTime, default=datetime.utcnow(),
+                        nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow(),
+                        nullable=False,
                         onupdate=datetime.utcnow())
 
     def __init__(self, *args, **kwargs):
@@ -26,7 +28,8 @@ class BaseModel:
             if not kwargs.get('id'):
                 kwargs['id'] = str(uuid.uuid4())
             if kwargs.get('created_at'):
-                kwargs['updated_at'] = kwargs['created_at'] = datetime.strptime(
+                kwargs['updated_at'] = kwargs[
+                    'created_at'] = datetime.strptime(
                     kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
             else:
                 kwargs['created_at'] = kwargs['updated_at'] = datetime.now()
@@ -37,7 +40,11 @@ class BaseModel:
     def __str__(self):
         """Returns a string representation of the instance"""
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
-        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
+        attributes = {}
+        for key, value in self.__dict__.items():
+            if key != '_sa_instance_state':
+                attributes.update({key: value})
+        return '[{}] ({}) {}'.format(cls, self.id, attributes)
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""

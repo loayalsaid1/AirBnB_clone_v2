@@ -36,10 +36,8 @@ class DBStorage:
             getenv('HBNB_MYSQL_DB')
         ), pool_pre_ping=True)
 
-
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
-
 
     def all(self, cls=None):
         """Return all the objects in the database or
