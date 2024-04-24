@@ -17,9 +17,11 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
+            """Get all the cities with state_id similer to this place id"""
             from models import storage
+            from models.city import City
             instances = []
-            for obj in storage.all(State).values():
+            for obj in storage.all(City).values():
                 if obj.state_id == self.id:
                     instances.append(obj)
 

@@ -44,9 +44,8 @@ class Place(BaseModel, Base):
 
             return instances
 
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
-        amenities = relationship('Amenity', secondary=place_amenity, viewonly=False)
-    else:
+    amenities = relationship('Amenity', secondary=place_amenity, viewonly=False)
+    if getenv('HBNB_TYPE_STORAGE') == 'fs':
         @property
         def amenities(self):
             """Get all the amenities for that place"""
