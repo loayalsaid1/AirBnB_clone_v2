@@ -19,7 +19,7 @@ def do_pack():
         mkdir("versions")
 
     time_now = datetime.now().strftime("%Y%m%d%H%M%S")
-    archive_name = f"web_static_{time_now}.tgz"
-    local(f"tar -cvzf versions/{archive_name} web_static/")
+    archive_name = "web_static_{}.tgz".format(time_now)
+    local("tar -cvzf versions/{} web_static/".format(archive_name))
 
-    return f"versions/{archive_name}"
+    return "versions/{}".format(archive_name)
