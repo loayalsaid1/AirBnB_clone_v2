@@ -15,7 +15,6 @@ env.user = "ubuntu"
 
 
 # Define the function to pack the content
-@runs_once
 def do_pack():
     """Pack the content of web_static and store it in versions
     With name: web_static_<year><month><day><hour><minute><second>.tgz
