@@ -15,6 +15,7 @@ env.user = "ubuntu"
 
 
 # Define the function to pack the content
+@task
 def do_pack():
     """Pack the content of web_static and store it in versions
     With name: web_static_<year><month><day><hour><minute><second>.tgz
@@ -32,6 +33,7 @@ def do_pack():
 
 
 # Define the function to deploy the content
+@task
 def do_deploy(archive_path=""):
     """Deploy your content to the remote
 

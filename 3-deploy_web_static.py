@@ -33,6 +33,7 @@ def do_pack():
 
 
 # Define the function to deploy the content
+@task
 def do_deploy(archive_path=""):
     """Deploy your content to the remote
 
@@ -59,7 +60,7 @@ def do_deploy(archive_path=""):
     except Exception:
         return False
 
-
+@task
 def deploy():
     """Archives and deploys the static files to the remote.
     """
