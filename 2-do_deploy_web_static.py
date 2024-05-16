@@ -10,7 +10,7 @@ from os import mkdir
 
 
 # Define hosts and user outside of the function using the older Fabric API
-env.hosts = ["35.153.98.111", "35.175.65.23"]
+env.hosts = ["34.232.77.37", "18.210.13.191"]
 env.user = "ubuntu"
 
 

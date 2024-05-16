@@ -10,7 +10,7 @@ from os import mkdir
 
 
 # Define hosts and user outside of the function using the older Fabric API
-env.hosts = ["35.153.98.111", "35.175.65.23"]
+env.hosts = ["34.232.77.37", "18.210.13.191"]
 env.user = "ubuntu"
 
 
@@ -33,6 +33,7 @@ def do_pack():
 
 
 # Define the function to deploy the content
+@task
 def do_deploy(archive_path=""):
     """Deploy your content to the remote
 
@@ -59,14 +60,14 @@ def do_deploy(archive_path=""):
     except Exception:
         return False
 
-
+@task
 def deploy():
     """Archives and deploys the static files to the remote.
     """
     archive_path = do_pack()
     return do_deploy(archive_path) if archive_path else False
 
-
+@task
 def do_clean(number=1):
     """Remove all old archives and releasess and leave <number>"""
     local_path = "versions"
