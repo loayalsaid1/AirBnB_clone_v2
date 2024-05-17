@@ -77,4 +77,4 @@ def do_clean(number=1):
     starting_line = number + 1
     local(command.format(local_path, starting_line))
     sudo(command.format(remote_path, starting_line))
-    # run('cd /home/ubuntu/ && rm -f $(ls -t /home/ubuntu | tail -n +2)')
+    run('cd /home/ubuntu/ && rm -f $(ls -t /home/ubuntu | tail -n +2)')
