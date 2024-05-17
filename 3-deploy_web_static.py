@@ -60,6 +60,7 @@ def do_deploy(archive_path=""):
     except Exception:
         return False
 
+
 @task
 def deploy():
     """Archives and deploys the static files to the remote.
