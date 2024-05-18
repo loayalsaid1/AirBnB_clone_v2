@@ -60,12 +60,14 @@ def do_deploy(archive_path=""):
     except Exception:
         return False
 
+
 @task
 def deploy():
     """Archives and deploys the static files to the remote.
     """
     archive_path = do_pack()
     return do_deploy(archive_path) if archive_path else False
+
 
 @task
 def do_clean(number=1):
@@ -79,4 +81,3 @@ def do_clean(number=1):
     starting_line = int(number) + 1
     local(command.format(local_path, starting_line))
     sudo(command.format(remote_path, starting_line))
-    run('cd /home/ubuntu/ && rm -f $(ls -t /home/ubuntu | tail -n +2)')
