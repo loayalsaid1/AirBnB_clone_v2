@@ -1,5 +1,10 @@
 {% extends "layout.html" %}
 
     {% block body %}
-        <H1>Number: {{ number }} is {{ type }}</H>
+    {% if number is odd %}
+        <H1>{{ number }} is odd</H1>
+    {% else %}
+        <H1>{{ number }} is even</H1>
+    {% endif %}
     {% endblock body %}
+
