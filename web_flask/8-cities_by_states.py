@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Flask application to show the show the cities in each state"""
+"""Flask application to show the show the states"""
 
 
 from models import storage
